@@ -1,83 +1,49 @@
-# tideo-project-timeline
+# Tideo Project Timeline
 
-数据驱动的项目时间线看板，只需修改配置即可适用于任何项目。
+> 数据驱动的项目甘特图 + 里程碑 + 待办看板，无需构建开箱即用
 
-## 文件结构
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/ildar981105-create/tideo-project-timeline)](https://github.com/ildar981105-create/tideo-project-timeline/stargazers)
+[![GitHub topics](https://img.shields.io/github/topics/codebuddy-skill)](https://github.com/topics/codebuddy-skill)
 
-```
-assets/
-├── project-timeline.html     # 页面（纯渲染引擎）
-├── project-timeline-data.js  # 项目数据配置（你只需改这个）
-└── render-from-config.js     # 渲染引擎（一般不需修改）
-```
+## 🎯 5 分钟上手
 
-## 快速使用
+1. 复制 `project-timeline-data.js` 到你的项目
+2. 修改 `PROJECT_CONFIG` 配置数据（每项有中文注释）
+3. 引入即可：
 
-1. 复制 `project-timeline.html` 和 `project-timeline-data.js` 到你的项目
-2. 打开 `project-timeline-data.js`，修改 `PROJECT_CONFIG` 中的所有数据
-3. 用浏览器打开 `project-timeline.html`
-
-## 配置项（PROJECT_CONFIG）
-
-```javascript
-const PROJECT_CONFIG = {
-  title: '项目名称',
-  phase: '进行中',           // 进行中 / 已完成 / 规划中
-  phaseColor: 'green',
-  startMonth: '3月',
-  endMonth: '6月',
-  totalWeeks: 14,
-  todayMonthDay: '4.17',     // 自动标注 today/done/soon/later 状态
-
-  overview: [                // 四宫格关键日期
-    { date:'3.10', label:'需求冻结', color:'blue' },
-    { date:'3.24', label:'交互完成', color:'purple' },
-    { date:'4.7', label:'视觉完成', color:'pink' },
-    { date:'4.20', label:'发布上线', color:'orange' }
-  ],
-
-  keyNodes: [                // 可折叠时间轴节点
-    { date:'3.4', title:'Kickoff', detail:[], color:'blue', chip:'done' },
-    { date:'3.10', title:'需求评审', detail:['PRD对齐','技术方案'], color:'blue', chip:'done' }
-    // ...
-  ],
-
-  gantt: [                   // 甘特图数据
-    ['首页', [{t:'ix',f:3.1,to:3.8}, {t:'ui',f:3.8,to:4.2}]],
-    ['视频译制', [{t:'ix',f:3.5,to:4.1}, {t:'ui',f:4.1,to:4.5}]]
-    // ...
-  ],
-
-  todos: [                   // 按周分组的待办清单
-    { week:'第一周', items:[
-      { text:'完成 PRD', tag:'plan' },
-      { text:'技术方案评审', tag:'done' }
-    ]}
-    // ...
-  ],
-
-  callouts: [                // 2×2 关注事项
-    { title:'风险', content:'依赖 SCF 上线时间', icon:'⚠' },
-    { title:'例外', content:'设计资源紧张', icon:'!' }
-  ]
-};
+```html
+<script src="project-timeline-data.js"></script>
+<script src="project-timeline.html"></script>
+<script src="render-from-config.js"></script>
 ```
 
-## 甘特图类型说明
+## 核心功能
 
-| 类型 | 说明 |
+| 模块 | 说明 |
 |------|------|
-| `ix` | 交互设计 |
-| `ui` | UI 设计 |
-| `fe` | 前端开发 |
-| `be` | 后端开发 |
-| `test` | 测试 |
-| `deploy` | 部署 |
+| **Hero 区** | 状态 Badge + 标题 + 当前阶段卡片 |
+| **Overview 四宫格** | 4 个关键日期（交互/视觉/测试/发布） |
+| **Key Nodes 时间轴** | 可折叠节点，自动标注 today/done/soon/later |
+| **Gantt Chart** | 按模块着色，自动画今日红线，支持 ix/vis/fe/be/tool/test |
+| **Todo List** | 按周分组，checkbox 切换完成状态 |
+| **Extras** | 任意数量的关注事项卡片（testing/status/tracking...） |
 
-## 自动状态标注
+## Gantt 类型速查
 
-JS 会根据 `todayMonthDay` 自动判断每个 chip 的状态：
-- `chip:'done'` → 绿色
-- `chip:'today'` → 红色
-- `chip:'soon'` → 黄色（未来 7 天内）
-- `chip:'later'` → 灰色
+| 类型 | 说明 | 颜色 |
+|------|------|------|
+| `ix` | 交互设计 | 蓝 |
+| `vis` | 视觉设计 | 紫 |
+| `fe` | 前端开发 | 青 |
+| `be` | 后端开发 | 黄 |
+| `tool` | 工具/基础设施 | 绿 |
+| `test` | 测试 | 玫瑰红 |
+
+## 完整功能说明
+
+详见 [SKILL.md](SKILL.md)
+
+## License
+
+MIT © Tideo
